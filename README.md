@@ -43,23 +43,46 @@ una fría de contra, y una hemisférica de relleno. Las sombras caen sobre un
 **Respeta `prefers-reduced-motion`.** Quien pidió menos movimiento en su sistema
 ve la escena quieta.
 
-## ⚠️ Regenerar `index.html` no funciona hoy
+## Regenerar el sitio
 
-`build.mjs` necesita dos cosas que **no están en este repositorio**:
+```bash
+npm install
+npm run build     # escribe index.html
+npm run preview   # http://localhost:4173
+```
 
-1. **`bundle.js`** — el empaquetado de three.js. No está el archivo ni el paso
-   que lo genera.
-2. **Los paquetes de fuentes** — `@fontsource-variable/fraunces`,
-   `@fontsource/ibm-plex-sans` y `@fontsource/ibm-plex-mono`. No hay
-   `package.json` que los declare.
+`build.mjs` hace tres cosas, en este orden:
 
-Esto **no impide usar el sitio**: `index.html` ya está generado y funciona solo.
-Lo que no se puede hoy es rehacerlo tras editar `template.html` o `scene.js`.
+1. **Empaqueta** `scene.js` con esbuild. `scene.js` hace
+   `import * as THREE from 'three'`, así que three se resuelve desde
+   `node_modules` y entra al bundle. Nada de CDN.
+2. **Sustituye las fuentes** de `template.html`: cada marcador `__FONT_*__` se
+   reemplaza por el `.woff2` correspondiente convertido a `data:` URI.
+3. **Inyecta el bundle** en `__BUNDLE__` y escribe `index.html`.
 
-Para recuperar esa capacidad hace falta: crear el `package.json` con las tres
-dependencias de fuentes, y reconstruir el paso que produce `bundle.js` a partir
-de `scene.js` más three.js.
+Entre el paso 2 y el 3 valida que no quede ningún marcador sin sustituir, y
+aborta si encuentra uno. Es lo que evita publicar una página con un
+`__FONT_SANS_400__` literal donde debía ir una tipografía.
 
-> Se deja escrito en vez de arreglarlo a medias, porque un `build.mjs` que
-> parece funcionar y falla al tercer intento es peor que uno con su limitación
-> declarada.
+> **Esto estaba roto hasta el 19 de septiembre de 2026.** `build.mjs` daba por
+> hecho que `bundle.js` ya existía en la carpeta, y ese archivo nunca se
+> versionó: al clonar el repositorio el build fallaba, y con él cualquier
+> cambio a la plantilla o a la escena. Tampoco había `package.json`, así que
+> las dependencias de fuentes no estaban declaradas en ningún lado.
+>
+> El paso que faltaba ahora es parte del script. `npm run build` reconstruye
+> todo desde cero, verificado: el `index.html` regenerado renderiza la escena
+> igual que el original.
+
+## Dependencias
+
+| Paquete | Para qué |
+|---|---|
+| `three` | La escena 3D |
+| `esbuild` | Empaqueta `scene.js` con three en un IIFE |
+| `@fontsource-variable/fraunces` | Titulares |
+| `@fontsource/ibm-plex-sans` | Texto corrido, tres pesos |
+| `@fontsource/ibm-plex-mono` | Etiquetas y datos, dos pesos |
+
+Las tres de fuentes son de desarrollo: sus archivos terminan dentro del HTML,
+así que el sitio publicado no depende de ellas.

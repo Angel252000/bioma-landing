@@ -1,4 +1,27 @@
 import { readFileSync, writeFileSync } from 'node:fs';
+import { build as esbuild } from 'esbuild';
+
+/*
+  El bundle se genera aca, no aparte.
+
+  Antes `build.mjs` daba por hecho que `bundle.js` ya existia en la carpeta, y
+  ese archivo nunca se versiono: el build quedaba roto para cualquiera que
+  clonara el repositorio, incluido el autor en otra maquina. Ahora el paso que
+  falta es parte del script, y `npm run build` reconstruye todo desde cero.
+
+  `scene.js` hace `import * as THREE from 'three'`, asi que esbuild resuelve
+  three desde node_modules y lo empaqueta en un IIFE. Nada de CDN: el archivo
+  resultante se incrusta en el HTML y la pagina abre sin red.
+*/
+const { outputFiles } = await esbuild({
+  entryPoints: ['scene.js'],
+  bundle: true,
+  format: 'iife',
+  minify: true,
+  target: 'es2020',
+  write: false,
+});
+const bundleJs = outputFiles[0].text;
 
 const dataUri = (path) =>
   `data:font/woff2;base64,${readFileSync(path).toString('base64')}`;
@@ -24,7 +47,9 @@ for (const [token, path] of Object.entries(fonts)) {
 const leftovers = html.match(/__(?!BUNDLE__)[A-Z_]+__/g);
 if (leftovers) throw new Error(`Marcadores sin sustituir: ${leftovers.join(', ')}`);
 
-const bundle = readFileSync('bundle.js', 'utf8').replace(/<\/script/gi, '<\\/script');
+// Escapar `</script` para que el propio bundle no cierre la etiqueta que lo
+// contiene. Es la unica forma de que un <script> en linea sea seguro.
+const bundle = bundleJs.replace(/<\/script/gi, '<\\/script');
 html = html.replace('__BUNDLE__', () => bundle);
 
 writeFileSync('index.html', html);
