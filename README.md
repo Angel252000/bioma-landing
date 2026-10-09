@@ -41,6 +41,7 @@ Para publicarlo, ese único archivo es todo lo que hay que subir.
 `scene.js` tiene una función constructora por animal —`buildFrog`,
 `buildToucan`, `buildSloth`, `buildHummingbird`, `buildMorpho`— más dos
 ayudantes, `limb()` y `ball()`, que son las piezas de las que sale todo.
+Para añadir un animal basta otra función con ese patrón y llamarla desde la escena.
 
 La iluminación es de tres puntos: una direccional cálida como luz principal,
 una fría de contra, y una hemisférica de relleno. Las sombras caen sobre un
