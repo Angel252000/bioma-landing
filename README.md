@@ -52,6 +52,7 @@ nada se descarga al abrir la página.
 
 **Respeta `prefers-reduced-motion`.** Quien pidió menos movimiento en su sistema
 ve la escena quieta.
+Es la preferencia del sistema, no un botón de la página.
 
 ## Regenerar el sitio
 
