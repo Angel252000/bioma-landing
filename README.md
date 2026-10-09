@@ -22,7 +22,7 @@ xdg-open index.html      # Linux
 `index.html` pesa 0.86 MB y es **completamente autocontenido**: cero peticiones
 externas. Las seis fuentes van embebidas como `data:font/woff2` y el bundle de
 three.js está incrustado en la propia página. Se puede abrir desde un USB, sin
-red, y se ve igual.
+red, y se ve igual. Basta un navegador con WebGL.
 
 Para publicarlo, ese único archivo es todo lo que hay que subir.
 
