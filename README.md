@@ -99,4 +99,5 @@ aborta si encuentra uno, con un error que nombra el marcador. Es lo que evita pu
 | `@fontsource/ibm-plex-mono` | Etiquetas y datos, dos pesos |
 
 Las tres de fuentes son de desarrollo: sus archivos terminan dentro del HTML,
-así que el sitio publicado no depende de ellas.
+así que el sitio publicado no depende de ellas. Tampoco hace falta `node_modules`
+en el servidor: está en `.gitignore` y no se sube.
