@@ -34,6 +34,7 @@ Para publicarlo, ese único archivo es todo lo que hay que subir.
 | `template.html` | La plantilla, con marcadores `__FONT_*__` y `__BUNDLE__` |
 | `scene.js` | Las cinco criaturas y la escena de three.js |
 | `build.mjs` | Sustituye los marcadores y escribe `index.html` |
+| `package.json` | Dependencias y los scripts `build` y `preview` |
 
 ## Cómo está hecha la escena
 
