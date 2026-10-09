@@ -56,6 +56,9 @@ Es la preferencia del sistema, no un botón de la página.
 
 ## Regenerar el sitio
 
+Hace falta Node.js; `build.mjs` es un módulo ES, así que conviene una versión
+reciente.
+
 ```bash
 npm install
 npm run build     # escribe index.html
