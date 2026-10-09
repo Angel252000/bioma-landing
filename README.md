@@ -7,6 +7,8 @@ rana, tucán, perezoso, colibrí y mariposa morfo. Ninguno es un modelo
 descargado — cada uno se arma con esferas y cilindros deformados en
 `scene.js`.
 
+**Contenido:** [Cómo verlo](#cómo-verlo) · [Los archivos](#los-archivos) · [La escena](#cómo-está-hecha-la-escena) · [Regenerar](#regenerar-el-sitio) · [Dependencias](#dependencias)
+
 ## Cómo verlo
 
 **Se abre y ya.** No hace falta servidor, ni instalar nada, ni conexión.
