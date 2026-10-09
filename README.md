@@ -15,6 +15,7 @@ descargado — cada uno se arma con esferas y cilindros deformados en
 
 ```bash
 open index.html          # macOS
+start index.html         # Windows
 xdg-open index.html      # Linux
 ```
 
