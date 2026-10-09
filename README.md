@@ -1,5 +1,7 @@
 # Bioma — landing con escena 3D
 
+**three.js · un solo archivo HTML · sin servidor · sin conexión**
+
 Una página de aterrizaje con cinco animales construidos por código en three.js:
 rana, tucán, perezoso, colibrí y mariposa morfo. Ninguno es un modelo
 descargado — cada uno se arma con esferas y cilindros deformados en
