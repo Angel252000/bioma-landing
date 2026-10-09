@@ -75,7 +75,7 @@ npm run preview   # http://localhost:4173
 3. **Inyecta el bundle** en `__BUNDLE__` y escribe `index.html`.
 
 Entre el paso 2 y el 3 valida que no quede ningún marcador sin sustituir, y
-aborta si encuentra uno. Es lo que evita publicar una página con un
+aborta si encuentra uno, con un error que nombra el marcador. Es lo que evita publicar una página con un
 `__FONT_SANS_400__` literal donde debía ir una tipografía.
 
 > **Esto estaba roto hasta el 19 de septiembre de 2026.** `build.mjs` daba por
