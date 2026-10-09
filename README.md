@@ -47,6 +47,9 @@ La iluminación es de tres puntos: una direccional cálida como luz principal,
 una fría de contra, y una hemisférica de relleno. Las sombras caen sobre un
 `ShadowMaterial` casi transparente, para que se vea la sombra y no el plano.
 
+Hay tres luces en total, sin mapas de entorno ni texturas externas, así que
+nada se descarga al abrir la página.
+
 **Respeta `prefers-reduced-motion`.** Quien pidió menos movimiento en su sistema
 ve la escena quieta.
 
